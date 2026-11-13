@@ -1,9 +1,35 @@
 {
   "app": "XQAI 无限画布",
-  "version": "v0.21.0",
+  "version": "v0.22.0",
   "updated_at": "2026-11-13",
   "homepage": "https://ai-pose-gallery-zh-66340.app.workbuddy.host/?sharecode=RJKFCF773S",
   "releases": [
+    {
+      "version": "v0.22.0",
+      "date": "2026-11-13",
+      "items": [
+        {
+          "type": "新增",
+          "text": "在线更新支持 7 路下载源自动切换：国内在线更新页、gh-proxy、jsDelivr 国内镜像、jsDelivr Fastly、ghfast、jsDelivr 官方、GitHub 直连；没有国外网络的用户也能正常下载更新。"
+        },
+        {
+          "type": "新增",
+          "text": "下载源改为并行探测，检查更新时显示每个源的连通状态、清单版本和响应耗时；单个源不通最多等 8 秒，不再逐个串行干等。"
+        },
+        {
+          "type": "新增",
+          "text": "新增魔搭 ModelScope 国内源支持，配置访问令牌后运行 push-modelscope.py 会自动上传版本文件并启用该源。"
+        },
+        {
+          "type": "调整",
+          "text": "多个源清单版本不一致时自动采用版本号最新的那份，避免 CDN 缓存旧清单导致漏更新；文件下载只在探测成功的源之间兜底。"
+        },
+        {
+          "type": "调整",
+          "text": "在线更新页补充完整下载源清单与「无需国外网络」说明，更新中心里可直接看到哪个源在生效。"
+        }
+      ]
+    },
     {
       "version": "v0.21.0",
       "date": "2026-11-13",
@@ -885,170 +911,108 @@
           "text": "修复页面白屏报错的问题。"
         }
       ]
-    },
-    {
-      "version": "v0.7.0",
-      "date": "2026-07-14",
-      "items": [
-        {
-          "type": "新增",
-          "text": "Agent 对话消息改用 streamdown 流式渲染，提升Markdown 内容展示效果。"
-        },
-        {
-          "type": "新增",
-          "text": "Agent 新增画布、工作台、提示词库和素材等站点级工具。"
-        },
-        {
-          "type": "新增",
-          "text": "Agent 面板改为全站常驻右侧栏，开关时同步推动顶栏和页面内容。"
-        },
-        {
-          "type": "新增",
-          "text": "Agent 新增 `site_navigate` 工具，支持页面跳转。"
-        },
-        {
-          "type": "新增",
-          "text": "Agent 对话运行中支持一键停止，中断当前 Codex turn。"
-        },
-        {
-          "type": "新增",
-          "text": "画布节点支持统一维护名称字段，默认显示在节点上方，并可直接双击名称编辑。"
-        },
-        {
-          "type": "新增",
-          "text": "画布新增组节点，支持节点拖入/拆出分组、拖拽高亮吸附和移动组时带动子节点。"
-        },
-        {
-          "type": "新增",
-          "text": "画布空白区域支持双击打开节点选择菜单，并在点击位置创建节点。"
-        },
-        {
-          "type": "调整",
-          "text": "Codex 会话改为站点级连续线程，跨页面和跨画布保持同一上下文。"
-        },
-        {
-          "type": "调整",
-          "text": "移除仅前端调用 OpenAI responses 接口，统一走 MCP + 本地 Codex 链路。"
-        },
-        {
-          "type": "调整",
-          "text": "画布节点顶部工具条改为点击选中节点后显示，避免鼠标经过节点时频繁弹出。"
-        },
-        {
-          "type": "优化",
-          "text": "本地 Agent 连接说明明确区分插件 / 手动 MCP 才会增加 Codex token 消耗。"
-        },
-        {
-          "type": "优化",
-          "text": "优化本地 Agent 连接说明，区分 Codex 插件启动和直接运行 Agent 两种方式。"
-        },
-        {
-          "type": "修复",
-          "text": "修复 Gemini 格式生图时因内置比例列表触发误报导致生成失败的问题。"
-        }
-      ]
     }
   ],
   "files": [
     {
       "path": "index.html",
-      "url": "releases/v0.21.0/index.html",
+      "url": "releases/v0.22.0/index.html",
       "size": 1096,
-      "sha256": "6f606eb40d5dff3d317d6edcff525eca8bd5df4e96be1726839d08b9596b9ab1"
+      "sha256": "b6cb72d016204b770e663065651c053db94c108d875d63e5b7741d035daf512d"
     },
     {
-      "path": "assets/index-BAgsk-gV.js",
-      "url": "releases/v0.21.0/assets/index-BAgsk-gV.js",
-      "size": 3925953,
-      "sha256": "427718cba7276514d24325fbf5fc4526d04829bac4269511c77f1f4155c4b78e"
+      "path": "assets/index-C5iY4u9j.js",
+      "url": "releases/v0.22.0/assets/index-C5iY4u9j.js",
+      "size": 3930952,
+      "sha256": "372de44a41b46b3ff9d4d5446d337988f9649573344a7f5e5cc95d5fe1149368"
     },
     {
-      "path": "assets/index-DYH9BU5p.css",
-      "url": "releases/v0.21.0/assets/index-DYH9BU5p.css",
-      "size": 121274,
-      "sha256": "bd8c0436660b06ac3d093daea6714f59205603f7d97de8687f42333bf2206841"
+      "path": "assets/index-ZzzZLYX1.css",
+      "url": "releases/v0.22.0/assets/index-ZzzZLYX1.css",
+      "size": 121710,
+      "sha256": "79556e77ac536e861e02d6652fe58a9d02e1150a43f2583ace0dcc8210f5ca68"
     },
     {
       "path": "logo.svg",
-      "url": "releases/v0.21.0/logo.svg",
+      "url": "releases/v0.22.0/logo.svg",
       "size": 229,
       "sha256": "c085c0c94c0bbce27bb135d4643f236e12aaafe9c9943a6c3d61a110de82221f"
     },
     {
       "path": "config.js",
-      "url": "releases/v0.21.0/config.js",
+      "url": "releases/v0.22.0/config.js",
       "size": 285,
       "sha256": "ff6db06171946a0269d9f25eded95724a9399aff6ad48445368c1cd1fd01d77b"
     },
     {
       "path": "wechat-qr.png",
-      "url": "releases/v0.21.0/wechat-qr.png",
+      "url": "releases/v0.22.0/wechat-qr.png",
       "size": 99471,
       "sha256": "7cf5ba7a75490aaf29f68d777d1f08e3ffde7d3dff597fb8489a76cd9463c5f2"
     },
     {
       "path": "studio-hero.webp",
-      "url": "releases/v0.21.0/studio-hero.webp",
+      "url": "releases/v0.22.0/studio-hero.webp",
       "size": 121298,
       "sha256": "a6ac07f83a561225822d9648649eefaba5160a326b1b05fcf42ffd26f0119e94"
     },
     {
       "path": "plugins/doubao-video.js",
-      "url": "releases/v0.21.0/plugins/doubao-video.js",
+      "url": "releases/v0.22.0/plugins/doubao-video.js",
       "size": 10557,
       "sha256": "06d489e1c9ad07e773b9af79dce6395120301fe55270db30d6e709fbac758bc0"
     },
     {
       "path": "plugins/index.json",
-      "url": "releases/v0.21.0/plugins/index.json",
+      "url": "releases/v0.22.0/plugins/index.json",
       "size": 67,
       "sha256": "b7e0f93aec7e57ccdfe3ae9152726c1597374d196fe2623955b3e863b5b9096c"
     },
     {
       "path": "plugins/pose-gallery.js",
-      "url": "releases/v0.21.0/plugins/pose-gallery.js",
+      "url": "releases/v0.22.0/plugins/pose-gallery.js",
       "size": 47940,
       "sha256": "09c965ecefac63be78de2eeb6491e3240c25c820b39d0d0edb424c572932adeb"
     },
     {
       "path": "icons/claude.svg",
-      "url": "releases/v0.21.0/icons/claude.svg",
+      "url": "releases/v0.22.0/icons/claude.svg",
       "size": 1696,
       "sha256": "a3101f3047a119aa11825ad9369510f0c472428c8c52d420e31bc62db44a8364"
     },
     {
       "path": "icons/deepseek.svg",
-      "url": "releases/v0.21.0/icons/deepseek.svg",
+      "url": "releases/v0.22.0/icons/deepseek.svg",
       "size": 2164,
       "sha256": "deba5f98a5c1796e20fcac3149bcd7eb8a32f0bdd04d048819400b1f28bd1439"
     },
     {
       "path": "icons/gemini.svg",
-      "url": "releases/v0.21.0/icons/gemini.svg",
+      "url": "releases/v0.22.0/icons/gemini.svg",
       "size": 2836,
       "sha256": "8ab0a9bafec11f7e69bcb9fc4ffd8f1bc927d1ddcbbb6ff36dee5ae8b5a9d602"
     },
     {
       "path": "icons/glm.svg",
-      "url": "releases/v0.21.0/icons/glm.svg",
+      "url": "releases/v0.22.0/icons/glm.svg",
       "size": 3597,
       "sha256": "8174e65ff71647d5c705c920c953a82bd723d9e3e42887bdd4ffc9dfe51207a0"
     },
     {
       "path": "icons/grok.svg",
-      "url": "releases/v0.21.0/icons/grok.svg",
+      "url": "releases/v0.22.0/icons/grok.svg",
       "size": 756,
       "sha256": "9175fc90c22655160231976c849f25a03b888d7cc0e04c5f1b987b659bb07c95"
     },
     {
       "path": "icons/linuxdo.svg",
-      "url": "releases/v0.21.0/icons/linuxdo.svg",
+      "url": "releases/v0.22.0/icons/linuxdo.svg",
       "size": 1483,
       "sha256": "7864fbfc8a4b9c865fa2b543c408b4bf02e3b4d3dfe6ccc947c0810201e3e458"
     },
     {
       "path": "icons/openai.svg",
-      "url": "releases/v0.21.0/icons/openai.svg",
+      "url": "releases/v0.22.0/icons/openai.svg",
       "size": 1687,
       "sha256": "a595df6b423920c67a7f8f73c063e4bfb72d415948097b6cac063a2366bb5186"
     }
