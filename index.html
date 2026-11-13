@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>XQAI 无限画布 · 在线更新中心</title>
+<style>
+  :root { color-scheme: light; --ink:#22262b; --muted:#6b7178; --line:#e5e7ea; --soft:#f7f8f9; --brand:#4387ff; --brand-soft:#eaf2ff; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--soft); color:var(--ink); font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif; line-height:1.6; }
+  .wrap { max-width: 880px; margin:0 auto; padding: 40px 20px 80px; }
+  header { display:flex; align-items:center; gap:14px; padding-bottom:24px; border-bottom:1px solid var(--line); }
+  .logo { width:38px; height:38px; border-radius:10px; background:var(--brand); display:grid; place-items:center; color:#fff; font-weight:700; font-size:17px; }
+  h1 { font-size:22px; margin:0; font-weight:650; letter-spacing:.2px; }
+  .sub { color:var(--muted); font-size:13px; margin-top:2px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px 24px; margin-top:20px; }
+  .hero { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px; }
+  .kicker { font-size:12px; color:var(--muted); letter-spacing:.5px; }
+  .ver { font-size:32px; font-weight:700; letter-spacing:-.5px; margin-top:2px; }
+  .date { color:var(--muted); font-size:13px; margin-top:4px; }
+  .badge { display:inline-flex; align-items:center; gap:6px; background:var(--brand-soft); color:#2563c9; border-radius:999px; padding:6px 14px; font-size:13px; font-weight:600; }
+  .dot { width:7px; height:7px; border-radius:50%; background:var(--brand); }
+  h2 { font-size:16px; margin:0 0 14px; font-weight:650; }
+  .steps { display:grid; gap:10px; }
+  .step { display:flex; gap:12px; align-items:flex-start; font-size:14px; }
+  .num { flex:none; width:22px; height:22px; border-radius:50%; background:var(--soft); border:1px solid var(--line); display:grid; place-items:center; font-size:12px; color:var(--muted); font-weight:600; }
+  .tip { margin-top:14px; padding:10px 14px; background:#fff8e8; border:1px solid #f2e2b8; border-radius:10px; font-size:13px; color:#8a6a1f; }
+  .rel { border-left:2px solid var(--line); padding-left:20px; margin-left:6px; }
+  .rel-item { position:relative; padding-bottom:24px; }
+  .rel-item:last-child { padding-bottom:0; }
+  .rel-item::before { content:""; position:absolute; left:-26px; top:7px; width:9px; height:9px; border-radius:50%; background:#fff; border:2px solid var(--brand); }
+  .rel-head { display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+  .rel-ver { font-weight:650; font-size:15px; }
+  .rel-date { color:var(--muted); font-size:12px; }
+  .tag { font-size:11px; border-radius:5px; padding:1px 7px; border:1px solid var(--line); color:var(--muted); background:var(--soft); }
+  .tag.new { color:#177245; background:#e9f7ee; border-color:#c7e9d4; }
+  .tag.fix { color:#b23b3b; background:#fdf0f0; border-color:#f3d2d2; }
+  .tag.chg { color:#2563c9; background:#eaf2ff; border-color:#cfe0ff; }
+  ul.items { list-style:none; padding:0; margin:10px 0 0; }
+  ul.items li { display:flex; gap:9px; align-items:flex-start; padding:4px 0; font-size:13.5px; color:#40454b; }
+  .kind { flex:none; font-size:11px; min-width:34px; text-align:center; border-radius:4px; padding:1px 5px; margin-top:3px; background:#f0f1f3; color:#6b7178; }
+  .kind.新增,.kind.Added { background:#e9f7ee; color:#177245; }
+  .kind.修复,.kind.Fixed { background:#fdf0f0; color:#b23b3b; }
+  .kind.调整,.kind.Changed,.kind.优化 { background:#eaf2ff; color:#2563c9; }
+  table.files { width:100%; border-collapse:collapse; font-size:13px; }
+  table.files th, table.files td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); }
+  table.files th { color:var(--muted); font-weight:500; font-size:12px; }
+  table.files td a { color:var(--brand); text-decoration:none; }
+  table.files td a:hover { text-decoration:underline; }
+  code { background:var(--soft); border:1px solid var(--line); border-radius:4px; padding:1px 5px; font-size:12px; }
+  footer { margin-top:28px; text-align:center; color:var(--muted); font-size:12px; }
+  .loading { color:var(--muted); font-size:14px; padding:20px 0; }
+  .hidden { display:none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">XQ</div>
+    <div>
+      <h1>XQAI 无限画布 · 在线更新中心</h1>
+      <div class="sub">功能版本发布、更新日志与手动下载</div>
+    </div>
+  </header>
+
+  <div id="loading" class="loading">正在读取版本信息…</div>
+
+  <div id="content" class="hidden">
+    <div class="card hero">
+      <div>
+        <div class="kicker">当前最新版本</div>
+        <div class="ver" id="latestVersion">—</div>
+        <div class="date" id="latestDate">—</div>
+      </div>
+      <div class="badge"><span class="dot"></span><span id="latestCount">—</span></div>
+    </div>
+
+    <div class="card">
+      <h2>怎么更新</h2>
+      <div class="steps">
+        <div class="step"><span class="num">1</span><span>打开你的画布，点击右上角 <strong>「在线更新」</strong> 图标（版本号旁边）。</span></div>
+        <div class="step"><span class="num">2</span><span>点 <strong>「检查更新」</strong>，看到新版本后点 <strong>「一键更新」</strong>，程序会自动下载、备份并替换文件。</span></div>
+        <div class="step"><span class="num">3</span><span>更新失败或想换回旧版，在更新窗口里点 <strong>「回滚」</strong> 即可恢复。</span></div>
+      </div>
+      <div class="tip">更新完成后按 <strong>Ctrl + F5</strong> 强制刷新浏览器，页面才会加载新版本。更新过程不会动你的画布数据、姿势图库和手工配置。</div>
+    </div>
+
+    <div class="card">
+      <h2>版本历史</h2>
+      <div class="rel" id="releases"></div>
+    </div>
+
+    <div class="card">
+      <h2>手动下载本版文件</h2>
+      <p style="margin:0 0 12px;color:var(--muted);font-size:13px">不想用一键更新时，可以单独下载下面这些文件，替换到本地 <code>web/dist/</code> 的对应位置。</p>
+      <table class="files">
+        <thead><tr><th>文件路径</th><th>大小</th><th>下载</th></tr></thead>
+        <tbody id="fileRows"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>XQAI 无限画布 · 更新数据来自 version.json</footer>
+</div>
+
+<script>
+(function () {
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function sizeText(n) {
+    if (!n && n !== 0) return '—';
+    return n < 1024 ? n + ' B' : n < 1048576 ? (n / 1024).toFixed(1) + ' KB' : (n / 1048576).toFixed(2) + ' MB';
+  }
+  function tagClass(kind) {
+    if (kind === '新增' || kind === 'Added') return 'new';
+    if (kind === '修复' || kind === 'Fixed') return 'fix';
+    if (kind === '调整' || kind === 'Changed' || kind === '优化') return 'chg';
+    return '';
+  }
+  fetch('./version.json' + (location.search || ''), { cache: 'no-store' })
+    .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function (data) {
+      document.getElementById('loading').classList.add('hidden');
+      document.getElementById('content').classList.remove('hidden');
+      document.title = 'XQAI 无限画布 · ' + (data.version || '在线更新中心');
+
+      document.getElementById('latestVersion').textContent = data.version || '—';
+      document.getElementById('latestDate').textContent = '发布于 ' + (data.updated_at || '—');
+      var first = (data.releases && data.releases[0]) || {};
+      document.getElementById('latestCount').textContent = (first.items ? first.items.length : 0) + ' 条更新内容';
+
+      var rel = document.getElementById('releases');
+      rel.innerHTML = (data.releases || []).map(function (r) {
+        var items = (r.items || []).map(function (it) {
+          var k = it.type || '更新';
+          return '<li><span class="kind ' + tagClass(k) + '">' + esc(k) + '</span><span>' + esc(it.text || it.content || '') + '</span></li>';
+        }).join('');
+        return '<div class="rel-item"><div class="rel-head">' +
+          '<span class="rel-ver">' + esc(r.version) + '</span>' +
+          '<span class="rel-date">' + esc(r.date || '') + '</span>' +
+          (r.version === data.version ? '<span class="tag new">最新</span>' : '') +
+          '</div><ul class="items">' + (items || '<li>暂无说明</li>') + '</ul></div>';
+      }).join('') || '<div class="loading">暂无版本记录</div>';
+
+      var rows = document.getElementById('fileRows');
+      rows.innerHTML = (data.files || []).map(function (f) {
+        var href = (f.url || '').charAt(0) === '/' ? f.url : './' + (f.url || '');
+        // 在线站点靠 ?sharecode= 鉴权，手动下载链接也要带上，否则会 403
+        if (location.search) href += location.search;
+        return '<tr><td><code>' + esc(f.path) + '</code></td><td>' + sizeText(f.size) + '</td>' +
+          '<td><a href="' + esc(href) + '" download>' + '下载' + '</a></td></tr>';
+      }).join('') || '<tr><td colspan="3">本版暂无可下载文件</td></tr>';
+    })
+    .catch(function (e) {
+      document.getElementById('loading').textContent = '版本信息还没发布或暂时读不到（' + esc(e.message) + '）。';
+    });
+})();
+</script>
+</body>
+</html>
