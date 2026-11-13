@@ -86,17 +86,22 @@
     </div>
 
     <div class="card">
-      <h2>下载源（国内 + GitHub，自动切换）</h2>
-      <p style="margin:0 0 12px;color:var(--muted);font-size:13px">画布内置三路下载源，按顺序尝试，某个连不上就自动换下一个。在更新窗口的「更新源设置」里可以关掉某个源，或固定只用其中一个。</p>
+      <h2>下载源（国内优先 · 没有国外网络也能更新）</h2>
+      <p style="margin:0 0 12px;color:var(--muted);font-size:13px">画布内置 7 路下载源，全部<strong>同时探测</strong>，谁通就用谁，按下面顺序优先；单个源连不上最多等 8 秒，不会一直转圈。<strong>除最后一条 GitHub 直连，其余都不需要国外网络。</strong>在更新窗口的「更新源设置」里能看到每个源的实测连通状态，也可以关掉某个源或固定只用其中一个。</p>
       <table class="files">
         <thead><tr><th>下载源</th><th>地址</th><th>用途</th></tr></thead>
         <tbody>
-          <tr><td>国内源 · 在线更新页</td><td><code>本页 /version.json</code></td><td>默认优先，国内访问最快</td></tr>
-          <tr><td>GitHub 源 · 直连</td><td><a href="https://github.com/cqiqi271/xqai-canvas-update" target="_blank" rel="noreferrer">raw.githubusercontent.com</a></td><td>国内站点不通时自动接上，海外用户更快</td></tr>
-          <tr><td>GitHub 源 · 国内加速</td><td><a href="https://cdn.jsdelivr.net/gh/cqiqi271/xqai-canvas-update@main/version.json" target="_blank" rel="noreferrer">cdn.jsdelivr.net</a></td><td>GitHub 直连慢时的镜像兜底</td></tr>
+          <tr><td>国内源 · 在线更新页</td><td><code>本页 /version.json</code></td><td>默认优先，国内直连最快</td></tr>
+          <tr><td>国内源 · gh-proxy 加速</td><td><code>gh-proxy.com</code></td><td>实时回源 GitHub 仓库，国内实测 &lt;1s，无缓存延迟</td></tr>
+          <tr><td>国内源 · jsDelivr 国内镜像</td><td><code>testingcf.jsdelivr.net</code></td><td>国内 CDN 节点，已通过 3.9MB 文件 sha256 校验</td></tr>
+          <tr><td>国内源 · jsDelivr Fastly</td><td><code>fastly.jsdelivr.net</code></td><td>另一条国内 CDN 备用</td></tr>
+          <tr><td>国内源 · ghfast 加速</td><td><code>ghfast.top</code></td><td>GitHub 国内代理备用</td></tr>
+          <tr><td>GitHub 源 · jsDelivr 官方</td><td><a href="https://cdn.jsdelivr.net/gh/cqiqi271/xqai-canvas-update@main/version.json" target="_blank" rel="noreferrer">cdn.jsdelivr.net</a></td><td>海外用户更快，国内也能用</td></tr>
+          <tr><td>GitHub 源 · 直连</td><td><a href="https://github.com/cqiqi271/xqai-canvas-update" target="_blank" rel="noreferrer">raw.githubusercontent.com</a></td><td>只有境外网络稳定，所以排最后</td></tr>
+          <tr><td>国内源 · 魔搭 ModelScope（可选）</td><td><code>modelscope.cn/models/…/resolve/master</code></td><td>国内最快，需令牌，运行 push-modelscope.py 后自动启用</td></tr>
         </tbody>
       </table>
-      <div class="tip">三路的 <code>version.json</code> 与版本文件是同一份、逐个带 sha256 校验，从哪一路下载都会先校验再覆盖，不会出现混搭文件。</div>
+      <div class="tip">所有源的 <code>version.json</code> 与版本文件是同一份、逐个带 sha256 校验，从哪一路下载都会先校验再覆盖，不会出现混搭文件。CDN 镜像可能缓存旧清单，服务端会自动以版本号最新的源为准。</div>
     </div>
 
     <div class="card">
